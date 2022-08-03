@@ -2,7 +2,7 @@
 
 This example disables an **Edit** button for [DxGrid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) rows whose **Date** field value is less than or equal to the current date.
 
-![Blazor DxGrid disable row editing](images/disable-roe-editing.png)
+![Blazor DxGrid disable row editing](images/disable-row-editing.png)
 
 ## Overview
 
