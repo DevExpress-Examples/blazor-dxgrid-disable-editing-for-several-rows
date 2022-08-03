@@ -1,0 +1,66 @@
+﻿@page "/"
+
+@using DisableEditButton.Data
+@inject WeatherForecastService ForecastService
+
+@if (forecasts == null) {
+    <p><em>Loading...</em></p>
+}
+else {
+    <DxGrid @ref="myGrid" Data="@forecasts" EditModelSaving="OnEditModelSaving">
+        <Columns>
+            <DxGridCommandColumn NewButtonVisible=false>
+                <CellDisplayTemplate>
+                    @{
+                        var date = context.DataItem != null ? (context.DataItem as WeatherForecast).Date : DateTime.Now;
+                        <DxButton Text="Edit"
+                                  RenderStyle="ButtonRenderStyle.Link" 
+                                  Click="() => myGrid.StartEditDataItemAsync(context.DataItem)" 
+                                  Enabled="@(date <= DateTime.Now ? false : true)" />
+                    }
+                </CellDisplayTemplate>
+            </DxGridCommandColumn>
+            <DxGridDataColumn Caption="Date" FieldName="Date"/>
+            <DxGridDataColumn Caption="Summary" FieldName="Summary"/>
+            <DxGridDataColumn Caption="Temperature (C)" FieldName="TemperatureC"/>
+            <DxGridDataColumn Caption="Temperature (F)" FieldName="TemperatureF"/>
+        </Columns>
+        <EditFormTemplate Context="editFormContext">
+            @{
+                var forecast = (WeatherForecast)editFormContext.EditModel;
+            }
+            <DxFormLayout>
+                <DxFormLayoutItem Caption="Date:">
+                    <DxDateEdit @bind-Date="@forecast.Date"/>
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Summary:">
+                    <DxComboBox Data="@ForecastService.Summaries" @bind-Value="@forecast.Summary"/>
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Temperature (C):">
+                    <DxSpinEdit @bind-Value="@forecast.TemperatureC"/>
+                </DxFormLayoutItem>
+                <DxFormLayoutItem Caption="Temperature (F):">
+                    @forecast.TemperatureF.ToString()
+                </DxFormLayoutItem>        
+            </DxFormLayout>
+        </EditFormTemplate>
+    </DxGrid>
+}
+
+@code {
+    List<WeatherForecast>? forecasts;
+    IGrid myGrid { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now.AddDays(-2));
+    }
+
+    void OnEditModelSaving(GridEditModelSavingEventArgs e) {
+        WeatherForecast dataItem = e.DataItem as WeatherForecast;
+        WeatherForecast editModel = e.EditModel as WeatherForecast;
+        dataItem.Date = editModel.Date;
+        dataItem.TemperatureC = editModel.TemperatureC;
+        dataItem.Summary = editModel.Summary;
+        myGrid.Reload();
+    }
+}
