@@ -45,7 +45,7 @@ Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Bl
 
 ### 3. Define an edit form's template
 
-The default edit form shows only the predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form content. This example uses the [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to create an edit form that displays [DevExpress editors](https://docs.devexpress.com/Blazor/401156/data-editors) for all editable data columns.
+The default edit form shows only the predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form's content. This example uses the [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to create an edit form that displays [DevExpress editors](https://docs.devexpress.com/Blazor/401156/data-editors) for all editable data columns.
 
 ```razor
 <EditFormTemplate Context="editFormContext">
