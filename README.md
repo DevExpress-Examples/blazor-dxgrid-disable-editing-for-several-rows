@@ -13,7 +13,7 @@ This example disables an **Edit** button for [DxGrid](https://docs.devexpress.co
 
 Follow the steps below to allow editing only the rows whose field values match your condition.
 
-### 1. Display an Edit button
+### 1. Create a custom Edit button
 
 Declare the [DxGridCommandColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) object in the [Columns](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Columns) template to display a command column. The command column displays predefined **New**, **Edit**, and **Delete** command buttons. Define the column's [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to implement a custom **Edit** [button](https://docs.devexpress.com/Blazor/401581/buttons). 
 
@@ -29,7 +29,7 @@ Declare the [DxGridCommandColumn](https://docs.devexpress.com/Blazor/DevExpress.
 </DxGrid>
 ```
 
-### 2. Customize the Edit button
+### 2. Customize the Edit button's behaviour
 
 Use the [CellDisplayTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate)'s [context](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext) parameter to access the [grid object](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.Grid) and proccesed [data item](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.DataItem). Set the **Edit** button's [Enabled](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Enabled) property to `true` or `false` depending on the data item's field values. Call the grid's [StartEditDataItemAsync](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.StartEditDataItemAsync(System.Object)) method to display an edit form when a user [clicks](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Click) the **Edit** button.
 
