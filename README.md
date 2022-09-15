@@ -3,19 +3,19 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1106833)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# Grid for Blazor - How to disable row editing depending on row values
+# Grid for Blazor - Restrict data editing to rows that match specific conditions
 
-This example disables an **Edit** button for [DxGrid](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid) rows whose **Date** field value is less than or equal to the current date.
+This example disables our Blazor Grid’s **Edit** button whenever the Date field value is less than or equal to the current date.
 
 ![Blazor DxGrid disable row editing](images/disable-row-editing.png)
 
 ## Overview
 
-Follow the steps below to allow users to edit only the rows whose field values match your condition.
+Follow the steps below to enable row editing for field values that match a specific condition.
 
 ### 1. Create a custom Edit button
 
-Declare the [DxGridCommandColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) object in the [Columns](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Columns) template to display a command column. The command column displays the predefined **New**, **Edit**, and **Delete** command buttons. Define the column's [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to implement a custom **Edit** [button](https://docs.devexpress.com/Blazor/401581/buttons). 
+Declare the [DxGridCommandColumn](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn) object in the [Columns](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Columns) template to display a command column. The command column displays predefined **New**, **Edit**, and **Delete** command buttons. Define the column's [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate) to implement a custom **Edit** [button](https://docs.devexpress.com/Blazor/401581/buttons). 
 
 ```razor
 <DxGrid @ref="myGrid" Data="@forecasts">
@@ -29,9 +29,9 @@ Declare the [DxGridCommandColumn](https://docs.devexpress.com/Blazor/DevExpress.
 </DxGrid>
 ```
 
-### 2. Customize the Edit button's behaviour
+### 2. Customize Edit button behaviour
 
-Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate)'s [context](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext) parameter to access the [grid object](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.Grid) and the processed [data item](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.DataItem). Set the **Edit** button's [Enabled](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Enabled) property to `true` or `false` depending on the data item's field values. Call the grid's [StartEditDataItemAsync](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.StartEditDataItemAsync(System.Object)) method to display an edit form when a user [clicks](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Click) the **Edit** button.
+Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridCommandColumn.CellDisplayTemplate)'s [context](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext) parameter to access the [grid object](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.Grid) and the processed [data item](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridColumnCellDisplayTemplateContext.DataItem). Set the **Edit** button's [Enabled](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Enabled) property to `true` or `false` based on the data item's field values. Call the grid's [StartEditDataItemAsync](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.StartEditDataItemAsync(System.Object)) method to display an edit form when a user [clicks](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxButton.Click) the **Edit** button.
 
 ```razor
 <CellDisplayTemplate>
@@ -44,9 +44,9 @@ Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Bl
 </CellDisplayTemplate>
 ```
 
-### 3. Define an edit form's template
+### 3. Define edit form template
 
-The default edit form shows only the predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form's content. This example uses the [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to create an edit form that displays [DevExpress editors](https://docs.devexpress.com/Blazor/401156/data-editors) for all editable data columns.
+The default edit form displays predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form's content. This example uses our Blazor [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to create an edit form with [DevExpress Blazor data editors](https://docs.devexpress.com/Blazor/401156/data-editors) for all editable data columns.
 
 ```razor
 <EditFormTemplate Context="editFormContext">
@@ -70,12 +70,12 @@ The default edit form shows only the predefined **Save** and **Cancel** buttons.
 
 ### 4. Save changes and reload data
 
-The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditModelSaving) event fires when a user submits an edit form and allows you to save changes. Use the following event argument's properties to post changes to the data source:
+The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditModelSaving) event fires when a user submits an edit form and allows you to save changes. Use the following event argument properties to post changes to the data source:
 
 - The [EditModel](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.EditModel) property returns the edit model that stores all changes.
 - The [DataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.DataItem) property returns the proccesed data item.
 
-[Reload](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) grid data after you post updates to the data source.
+[Reload](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) Blazor Grid data after you post updates to the data source.
 
 ```razor
 <DxGrid @ref="myGrid" Data="@forecasts" EditModelSaving="OnEditModelSaving">
@@ -94,7 +94,7 @@ The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGri
 }
 ```
 
-## Files to Look At
+## Files to Review
 
 - [Index.razor](./CS/DisableEditButton/Pages/Index.razor)
 
