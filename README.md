@@ -75,7 +75,7 @@ The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGri
 - The [EditModel](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.EditModel) property returns the edit model that stores all changes.
 - The [DataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.DataItem) property returns the proccesed data item.
 
-[Reload](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) Blazor Grid data after you post updates to the data source.
+The Blazor Grid automatically [reloads](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) its data after you post updates to the data source.
 
 ```razor
 <DxGrid @ref="myGrid" Data="@forecasts" EditModelSaving="OnEditModelSaving">
@@ -89,7 +89,6 @@ The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGri
         dataItem.Date = editModel.Date;
         dataItem.TemperatureC = editModel.TemperatureC;
         dataItem.Summary = editModel.Summary;
-        myGrid.Reload();
     }
 }
 ```
