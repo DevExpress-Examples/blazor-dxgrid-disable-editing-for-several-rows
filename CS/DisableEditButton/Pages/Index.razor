@@ -16,7 +16,7 @@ else {
                         <DxButton Text="Edit"
                                   RenderStyle="ButtonRenderStyle.Link" 
                                   Click="() => myGrid.StartEditDataItemAsync(context.DataItem)" 
-                                  Enabled="@(date <= DateTime.Now ? false : true)" />
+                                  Enabled="@(date <= DateTime.Now)" />
                     }
                 </CellDisplayTemplate>
             </DxGridCommandColumn>
@@ -40,7 +40,7 @@ else {
                     <DxSpinEdit @bind-Value="@forecast.TemperatureC"/>
                 </DxFormLayoutItem>
                 <DxFormLayoutItem Caption="Temperature (F):">
-                    @forecast.TemperatureF.ToString()
+                    @forecast.TemperatureF
                 </DxFormLayoutItem>        
             </DxFormLayout>
         </EditFormTemplate>
