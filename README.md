@@ -39,7 +39,7 @@ Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Bl
         var date = context.DataItem != null ? (context.DataItem as WeatherForecast).Date : DateTime.Now;
             <DxButton Text="Edit"
                       Click="() => myGrid.StartEditDataItemAsync(context.DataItem)" 
-                      Enabled="@(date <= DateTime.Now ? false : true)" />
+                      Enabled="@(date <= DateTime.Now)" />
     }
 </CellDisplayTemplate>
 ```
@@ -62,7 +62,7 @@ The default edit form displays predefined **Save** and **Cancel** buttons. Use t
             <DxSpinEdit @bind-Value="@forecast.TemperatureC"/>
         </DxFormLayoutItem>
         <DxFormLayoutItem Caption="Temperature (F):">
-            @forecast.TemperatureF.ToString()
+            @forecast.TemperatureF
         </DxFormLayoutItem>
     </DxFormLayout>
 </EditFormTemplate>
