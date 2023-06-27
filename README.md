@@ -46,23 +46,22 @@ Use the [cell display template](https://docs.devexpress.com/Blazor/DevExpress.Bl
 
 ### 3. Define edit form template
 
-The default edit form displays predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form's content. This example uses our Blazor [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to create an edit form with [DevExpress Blazor data editors](https://docs.devexpress.com/Blazor/401156/data-editors) for all editable data columns.
+The default edit form displays predefined **Save** and **Cancel** buttons. Use the [edit form template](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.EditFormTemplate) to define the edit form's content. This example uses our Blazor [DxFormLayout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) to display automatically generated editors in the edit form for all editable data columns.
 
 ```razor
 <EditFormTemplate Context="editFormContext">
-    @{ var forecast = (WeatherForecast)editFormContext.EditModel; }
     <DxFormLayout>
         <DxFormLayoutItem Caption="Date:">
-            <DxDateEdit @bind-Date="@forecast.Date"/>
+            @editFormContext.GetEditor("Date")
         </DxFormLayoutItem>
         <DxFormLayoutItem Caption="Summary:">
-            <DxComboBox Data="@ForecastService.Summaries" @bind-Value="@forecast.Summary"/>
+            @editFormContext.GetEditor("Summary")
         </DxFormLayoutItem>
         <DxFormLayoutItem Caption="Temperature (C):">
-            <DxSpinEdit @bind-Value="@forecast.TemperatureC"/>
+            @editFormContext.GetEditor("TemperatureC")
         </DxFormLayoutItem>
         <DxFormLayoutItem Caption="Temperature (F):">
-            @forecast.TemperatureF
+            @editFormContext.GetEditor("TemperatureF")
         </DxFormLayoutItem>
     </DxFormLayout>
 </EditFormTemplate>

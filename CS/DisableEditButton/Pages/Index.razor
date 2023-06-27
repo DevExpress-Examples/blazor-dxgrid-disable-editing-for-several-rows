@@ -14,9 +14,9 @@ else {
                     @{
                         var date = context.DataItem != null ? (context.DataItem as WeatherForecast).Date : DateTime.Now;
                         <DxButton Text="Edit"
-                                  RenderStyle="ButtonRenderStyle.Link" 
-                                  Click="() => myGrid.StartEditDataItemAsync(context.DataItem)" 
-                                  Enabled="@(date <= DateTime.Now)" />
+                                  RenderStyle="ButtonRenderStyle.Link"
+                                  Click="() => myGrid.StartEditDataItemAsync(context.DataItem)"
+                                  Enabled="@(date >= DateTime.Now)" />
                     }
                 </CellDisplayTemplate>
             </DxGridCommandColumn>
@@ -26,22 +26,19 @@ else {
             <DxGridDataColumn Caption="Temperature (F)" FieldName="TemperatureF"/>
         </Columns>
         <EditFormTemplate Context="editFormContext">
-            @{
-                var forecast = (WeatherForecast)editFormContext.EditModel;
-            }
             <DxFormLayout>
                 <DxFormLayoutItem Caption="Date:">
-                    <DxDateEdit @bind-Date="@forecast.Date"/>
+                    @editFormContext.GetEditor("Date")
                 </DxFormLayoutItem>
                 <DxFormLayoutItem Caption="Summary:">
-                    <DxComboBox Data="@ForecastService.Summaries" @bind-Value="@forecast.Summary"/>
+                    @editFormContext.GetEditor("Summary")
                 </DxFormLayoutItem>
                 <DxFormLayoutItem Caption="Temperature (C):">
-                    <DxSpinEdit @bind-Value="@forecast.TemperatureC"/>
+                    @editFormContext.GetEditor("TemperatureC")
                 </DxFormLayoutItem>
                 <DxFormLayoutItem Caption="Temperature (F):">
-                    @forecast.TemperatureF
-                </DxFormLayoutItem>        
+                    @editFormContext.GetEditor("TemperatureF")
+                </DxFormLayoutItem>
             </DxFormLayout>
         </EditFormTemplate>
     </DxGrid>
