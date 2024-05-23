@@ -74,6 +74,8 @@ The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGri
 - The [EditModel](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.EditModel) property returns the edit model that stores all changes.
 - The [DataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.DataItem) property returns the proccesed data item.
 
+If you do not customize the EditModel, you can use the [CopyChangesToDataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.CopyChangesToDataItem) method to copy all changes made in edit model to the data item. 
+
 The Blazor Grid automatically [reloads](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) its data after you post updates to the data source.
 
 ```razor
@@ -83,11 +85,7 @@ The Blazor Grid automatically [reloads](https://docs.devexpress.com/Blazor/DevEx
 
 @code {
     void OnEditModelSaving(GridEditModelSavingEventArgs e) {
-        WeatherForecast dataItem = e.DataItem as WeatherForecast;
-        WeatherForecast editModel = e.EditModel as WeatherForecast;
-        dataItem.Date = editModel.Date;
-        dataItem.TemperatureC = editModel.TemperatureC;
-        dataItem.Summary = editModel.Summary;
+        e.CopyChangesToDataItem();
     }
 }
 ```
