@@ -53,10 +53,6 @@ else {
     }
 
     void OnEditModelSaving(GridEditModelSavingEventArgs e) {
-        WeatherForecast dataItem = e.DataItem as WeatherForecast;
-        WeatherForecast editModel = e.EditModel as WeatherForecast;
-        dataItem.Date = editModel.Date;
-        dataItem.TemperatureC = editModel.TemperatureC;
-        dataItem.Summary = editModel.Summary;
+        e.CopyChangesToDataItem();
     }
 }
