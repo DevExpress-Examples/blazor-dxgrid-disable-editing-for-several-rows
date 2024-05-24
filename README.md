@@ -72,7 +72,7 @@ The [EditModelSaving](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGri
 
 - The [EditModel](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.EditModel) property returns the edit model that stores all changes.
 - The [DataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.DataItem) property returns the proccesed data item.
-- The [CopyChangesToDataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.CopyChangesToDataItem) method to copy all changes made in edit model to the data item. 
+- The [CopyChangesToDataItem](https://docs.devexpress.com/Blazor/DevExpress.Blazor.GridEditModelSavingEventArgs.CopyChangesToDataItem) method copies all changes made in the edit model to the data item. 
 
 The Blazor Grid automatically [reloads](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.Reload) its data after you post updates to the data source.
 
